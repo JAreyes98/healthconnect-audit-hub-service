@@ -11,6 +11,10 @@ def start_audit_consumer():
     while True:
         try:
             params = pika.URLParameters(settings.rabbitmq_host)
+            
+            params.heartbeat = 600
+            params.blocked_connection_timeout = 300
+            
             connection = pika.BlockingConnection(params)
             break
         except Exception as e:
