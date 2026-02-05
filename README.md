@@ -41,3 +41,16 @@ DATABASE_URL=postgresql://user:pass@192.168.0.4:5432/audit_db
 RABBITMQ_HOST=192.168.0.4
 RABBITMQ_QUEUE=audit_queue
 APP_PORT=8000
+
+
+`
+docker run -d
+  --name healthconnect-audit-hub
+  --network healthconnect-net
+  -p 8000:8000
+  -e DATABASE_URL=postgresql://postgres:1234@postgresdb-prod-01:5432/audit_db
+  -e RABBITMQ_HOST=healthconnect-queue
+  -e RABBITMQ_QUEUE=audit_queue
+  -e APP_PORT=8000
+  healthconnect-audit-hub-service:1.0.0
+`
