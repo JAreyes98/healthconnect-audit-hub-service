@@ -10,14 +10,8 @@ def start_audit_consumer():
     connection = None
     while True:
         try:
-            connection = pika.BlockingConnection(
-                pika.ConnectionParameters(
-                    host=settings.rabbitmq_host,
-                    port=5672,
-                    connection_attempts=3,
-                    retry_delay=5
-                )
-            )
+            params = pika.URLParameters(settings.rabbitmq_host)
+            connection = pika.BlockingConnection(params)
             break
         except Exception as e:
             print(f"[!] Connexion Error RabbitMQ ({settings.rabbitmq_host}): {e}. Retrying 5 seconds...")
